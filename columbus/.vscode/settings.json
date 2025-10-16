@@ -1,0 +1,15 @@
+{
+  "workbench.colorCustomizations": {
+    "editor.background": "#0f172a",              // Fondo oscuro tipo espacio
+    "editor.foreground": "#94a3b8",              // Texto suave
+    "activityBar.background": "#1e293b",         // Barra lateral oscura
+    "activityBar.foreground": "#c084fc",         // Acento púrpura Astro
+    "sideBar.background": "#1e293b",
+    "statusBar.background": "#7c3aed",           // Púrpura Astro
+    "statusBar.foreground": "#ffffff",
+    "titleBar.activeBackground": "#0f172a",
+    "titleBar.activeForeground": "#c084fc",
+    "titleBar.inactiveBackground": "#7c3aed", 
+    "titleBar.inactiveForeground": "#000000" 
+  }
+}

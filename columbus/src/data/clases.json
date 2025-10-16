@@ -1,0 +1,42 @@
+[
+  {
+    "nombre": "Box Intermedio",
+    "descripcion": "Clase de box para mejorar técnica y resistencia",
+    "entrenadorId": "entrenadorBox01",
+    "horario": "Lunes, 19:00, 20:00",
+    "imagenClase":"/images/box1.jpg",
+    "cuposDisponibles": 10
+  },
+  {
+    "nombre": "Box Avanzado",
+    "descripcion": "Entrenamiento de box de alto rendimiento",
+    "entrenadorId": "entrenadorBox02",
+    "horario": "Martes, 18:00, 19:30",
+        "imagenClase":"/images/box2.jpg",
+    "cuposDisponibles": 8
+  },
+  {
+    "nombre": "Box Principiantes",
+    "descripcion": "Clase introductoria para nuevos en box",
+    "entrenadorId": "entrenadorBox03",
+    "horario": "Sábado, 09:00, 10:00",
+        "imagenClase":"/images/box3.jpg",
+    "cuposDisponibles": 12
+  },
+  {
+    "nombre": "Baile Latino",
+    "descripcion": "Clase de salsa y bachata para todos los niveles",
+    "entrenadorId": "entrenadorBaile01",
+    "horario": "Viernes, 19:00, 20:00",
+        "imagenClase":"/images/baile.jpg",
+    "cuposDisponibles": 15
+  },
+  {
+    "nombre": "Baile Urbano",
+    "descripcion": "Coreografías de reggaetón y hip hop",
+    "entrenadorId": "entrenadorBaile02",
+    "horario": "Domingo, 17:00, 18:30",
+        "imagenClase":"/images/baileClase.jpg",
+    "cuposDisponibles": 20
+  }
+]

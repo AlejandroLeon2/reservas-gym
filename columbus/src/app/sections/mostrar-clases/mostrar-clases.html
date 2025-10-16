@@ -1,0 +1,30 @@
+<section class="container flex flex-col px-4 mx-auto py-4 space-y-4">
+  <h2 class="text-4xl font-bebas mx-auto py-4">Clases Disponibles</h2>
+  <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-6">
+    @for (item of data() ; track $index) {
+    <li class="flex  w-full">
+      <div class="w-auto flex bg-amarilloBrillate  ">
+        <h3 class="px-2 text-center  my-auto vertical-text py-1 font-bebas text-xl break-words">
+          {{ item.nombre }}
+        </h3>
+
+      </div>
+      <article class="relative max-w-sm w-full flex flex-col shadow rounded-r-2xl   outline-gray-200">
+        <div class="h-full max-h-70 md:h-70 flex overflow-hidden ">
+          <img
+            src="{{ item.imagenClase }}"
+            alt="imagen de {{ item.nombre }}"
+            class="h-auto w-full rounded-r-2xl object-cover"
+          />
+        </div>
+        <p
+          class="py-1 text-xl font-bebas px-4 absolute -bottom-3 border border-gray-100 right-0 bg-black duration-300 rounded-sm text-white hover:scale-105"
+        >
+          Cupos Disponibles: <span class="text-green-500">{{ item.cuposDisponibles }} </span> /
+          <span class="text-amarilloBrillate">30</span>
+        </p>
+      </article>
+    </li>
+    }
+  </ul>
+</section>

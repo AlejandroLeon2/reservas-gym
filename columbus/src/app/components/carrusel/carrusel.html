@@ -1,0 +1,21 @@
+<section class="pt-14 md:pt-8 overflow-x-hidden flex relative mx-auto ">
+  <button
+    (click)="derecha()"
+    class="absolute boton top-1/2 translate-y-1/4 md:-translate-y-1/2 left-1 z-10 bg-white/30 rounded-full p-2 shadow hover:bg-white active:bg-white"
+  >
+    <app-icon-flecha [styleClass]="' w-4 h-4 rotate-90 '" />
+  </button>
+  <ul #sliderTrack class="flex transition-transform duration-300 w-full  ">
+    @for (banner of data.banners_principales; track banner) {
+    <li class="min-w-full min-h-full ">
+      <img [src]="banner" alt="Banner" class="object-cover w-full h-auto 2xl:max-h-120" />
+    </li>
+    }
+  </ul>
+  <button
+    (click)="izquierda()"
+    class="absolute boton top-1/2 translate-y-1/4 md:-translate-y-1/2 right-1 z-10 bg-white/30 rounded-full p-2 shadow hover:bg-white active:bg-white"
+  >
+    <app-icon-flecha [styleClass]="' w-4 h-4 -rotate-90 '" />
+  </button>
+</section>

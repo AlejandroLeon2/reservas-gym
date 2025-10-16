@@ -1,0 +1,66 @@
+{
+  "nombre": "Columbus Fitness Gym",
+  "descripcion": "Centro de entrenamiento grupal enfocado en mejorar la calidad de vida de sus socios.",
+  "ubicacion": {
+    "direccion": "Av. Víctor Malásquez Mz C / Lt 11",
+    "referencia": "Paradero 10, Manchay Alto",
+    "ciudad": "Pachacámac",
+    "pais": "Perú"
+  },
+  "rutasSitio": [
+    { "ruta": "home", "nombre": "Home" },
+    { "ruta": "clases", "nombre": "Clases" },
+    { "ruta": "login", "nombre": "Iniciar sesión" },
+    { "ruta": "register", "nombre": "Registro" },
+    { "ruta": "admin", "nombre": "Panel Admin" }
+  ],
+  "banners_principales": [
+    "/banners/banner1.jpg",
+    "/banners/banner2.jpg",
+    "/banners/banner3.jpg",
+    "/banners/banner4.jpg",
+    "/banners/banner5.jpg",
+    "/banners/banner6.jpg"
+  ],
+  "contacto": {
+    "telefono": "+51 946 113 878",
+    "email": "columbusfitnessgym@gmail.com",
+    "whatsapp": true
+  },
+  "estado": {
+    "abierto": false,
+    "horario": "Cerrado ahora"
+  },
+  "redes_sociales": {
+    "facebook": "https://www.facebook.com/ColumbusFitnessGym"
+  },
+  "servicios": [
+    "Entrenamiento grupal",
+    "Clases de baile",
+    "Programas de transformación física",
+    "Actividades recreativas"
+  ],
+  "eventos_recientes": [
+    {
+      "titulo": "Reapertura y aniversario",
+      "fecha": "2024-10-11",
+      "descripcion": "Celebración de los 9 años y reapertura en nueva sede con entrenamientos grupales."
+    },
+    {
+      "titulo": "Clases de baile",
+      "fecha": "2024-10-26",
+      "descripcion": "Sesiones grupales para ejercitarse bailando y mejorar la salud física y emocional."
+    }
+  ],
+  "opiniones": {
+    "porcentaje_recomendacion": 70,
+    "cantidad": 27
+  },
+  "hashtags": [
+    "#ColumbusFitness",
+    "#TransformaTuCuerpo",
+    "#ViveElCambio",
+    "#TodoEmpiezaAqui",
+    "#ColumbusLovers"
+  ]
+}

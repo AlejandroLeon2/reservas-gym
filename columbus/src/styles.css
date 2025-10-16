@@ -1,0 +1,62 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-amarilloBrillate: #FAB004;
+  --color-grisOscuro: #2e2e2e;
+  --color-energy: #f8c218;
+  --font-bebas: 'Bebas Neue', sans-serif;
+  --font-poppins: 'Poppins', sans-serif;
+}
+@layer {
+  .boton {
+    @apply hover:scale-105 active:scale-95 duration-300;
+  }
+  .buttones {
+    @apply w-full py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-700;
+  }
+
+  .error-message {
+    @apply text-red-600 text-sm mt-2;
+  }
+
+}
+
+@font-face {
+  font-family: 'Bebas Neue';
+  src: url('/fonts/BebasNeue-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/Poppins-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/Poppins-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/Poppins-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/Poppins-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+

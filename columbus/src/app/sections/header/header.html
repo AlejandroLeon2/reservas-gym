@@ -1,0 +1,66 @@
+<header
+  [ngClass]="scrolled() ? 'bg-black shadow-lg' : 'md:bg-black/20 '"
+  class="fixed z-50 w-full bg-black shadow-md"
+>
+  <section class="hidden md:flex h-8 bg-gray-200 text-gray-700 text-xs">
+    <div class=" container mx-auto px-4 flex justify-between items-center">
+      <address class="flex items-center gap-4 not-italic">
+        <span>{{ data.contacto.email }}</span>
+        <span>{{ data.contacto.telefono }}</span>
+
+        <span>{{ data.ubicacion.direccion }}</span>
+      </address>
+    </div>
+  </section>
+
+  <nav class="flex items-center mx-auto container justify-between px-4 text-white h-15">
+    <a href="/" class="flex items-center">
+      <img src="/banners/logo.svg" alt="Logo Columbus" class="w-38" />
+    </a>
+
+    <ul class="hidden md:flex gap-4" role="list">
+      @for (ruta of data.rutasSitio; track ruta) {
+      <li class="group relative flex flex-col p-0.5 ">
+        <p class="font-bebas text-lg">{{ ruta.nombre }}</p>
+
+        <a
+          [routerLink]="['/', ruta.ruta]"
+          class="w-0 group-hover:w-full group-active:w-full absolute transition-[width] duration-300 overflow-hidden whitespace-nowrap text-amarilloBrillate font-bebas text-lg"
+        >
+          {{ ruta.nombre }}
+        </a>
+        <div class="w-0 group-hover:w-full group-active:w-full absolute transition-[width] duration-300 overflow-hidden bg-amarilloBrillate h-1 bottom-0"></div>
+      </li>
+
+      }
+    </ul>
+
+
+    <button
+  id="openMenu"
+  (click)="toggleMenu()"
+  class="md:hidden w-10 h-10 bg-gray-200 flex justify-center items-center rounded hover:bg-gray-300 transition"
+  aria-label="Abrir menú"
+>
+      <svg class="w-6 h-6 text-gray-700" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"></path>
+      </svg>
+</button>
+
+  </nav>
+@if (menuAbierto) {
+  <div class="md:hidden bg-black/90 text-white px-4 py-6 space-y-4 absolute top-full left-0 w-full z-40">
+    <ul class="flex flex-col gap-4">
+      @for (ruta of data.rutasSitio; track ruta) {
+        <li>
+          <a [routerLink]="['/', ruta.ruta]" class="block font-bebas text-lg hover:text-amarilloBrillate">
+            {{ ruta.nombre }}
+          </a>
+        </li>
+      }
+    </ul>
+  </div>
+}
+
+
+</header>
