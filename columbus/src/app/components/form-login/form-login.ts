@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormsModule, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../service/auth/auth-service';
 import { CommonModule, NgClass } from '@angular/common';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-form-login',
@@ -11,7 +12,7 @@ import { CommonModule, NgClass } from '@angular/common';
   styleUrls: ['./form-login.css'],
 })
 export class FormLogin {
-  private apiUrl = 'https://reservas-gym-production.up.railway.app/v1/auth';
+  private apiUrl = `${environment.url}/auth`;
   private fb = inject(FormBuilder);
 
   formLogin = this.fb.nonNullable.group({
@@ -55,6 +56,7 @@ export class FormLogin {
     try {
       const user = await this.authService.loginWithGoogle();
       const token = await user.user.getIdToken();
+console.log('Environment activo:', environment);
 
       await fetch(this.apiUrl, {
         method: 'POST',
@@ -65,6 +67,7 @@ export class FormLogin {
       });
 
       console.log('Login con Google exitoso:', user.user);
+      
     } catch (err) {
       this.errorMessage = 'Error al iniciar sesión con Google.';
       console.error('Google login error:', err);

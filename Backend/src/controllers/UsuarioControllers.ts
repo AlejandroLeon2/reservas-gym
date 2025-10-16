@@ -26,4 +26,21 @@ export class UsuarioControllers {
       mensaje: "Usuario autenticado y guardado",
     });
   };
+  public obtenerUsuarioPorUid = async (req: Request, res: Response) => {
+    try {
+      const uid = req.params.uid;
+      if (!uid) {
+        return res.status(400).json({ error: "Falta el parámetro 'Uid'" });
+      }
+      const usuario = await this.servicio.obtener(uid);
+      if (!usuario) {
+        return res.status(404).json({ error: "Usuario no encontrado" });
+      }
+
+      res.status(200).json(usuario);
+    } catch (error) {
+      console.error("Error al obtener usuario:", error);
+      res.status(500).json({ error: "Error interno del servidor" });
+    }
+  };
 }
