@@ -1,6 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 export interface Clase {
   id?: string;
@@ -13,7 +14,7 @@ export interface Clase {
 
 @Injectable({ providedIn: 'root' })
 export class ClaseService {
-  private apiUrl = 'https://reservas-gym-production.up.railway.app/v1/clase';
+  private apiUrl = `${environment.url}/clase`;
   clases = signal<Clase[]>([]);
 
   constructor(private http: HttpClient) {}
