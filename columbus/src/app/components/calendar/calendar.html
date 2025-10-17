@@ -1,0 +1,175 @@
+<section
+  class="w-full  mx-auto bg-slate-900 rounded-2xl shadow-2xl border border-yellow-400 border-opacity-30 overflow-hidden p-4 sm:p-0"
+>
+  <header class="bg-gradient-to-r from-yellow-400 to-yellow-500 p-4 sm:p-6">
+    <div class="flex items-center justify-between gap-2 sm:gap-4">
+      <button
+        (click)="changeMonth(-1)"
+        type="button"
+        class="bg-slate-900 hover:bg-slate-800 text-yellow-400 p-2 sm:p-3 rounded-lg transition-colors duration-200 flex-shrink-0"
+        aria-label="Mes anterior"
+      >
+        <svg
+          class="w-5 h-5 sm:w-6 sm:h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 19l-7-7 7-7"
+          />
+        </svg>
+      </button>
+
+      <h2
+        class="text-xl sm:text-2xl font-bold text-slate-900 font-bebas tracking-wider flex-1 text-center"
+      >
+        {{ monthYearLabel }}
+      </h2>
+
+      <button
+        (click)="changeMonth(1)"
+        type="button"
+        class="bg-slate-900 hover:bg-slate-800 text-yellow-400 p-2 sm:p-3 rounded-lg transition-colors duration-200 flex-shrink-0"
+        aria-label="Mes siguiente"
+      >
+        <svg
+          class="w-5 h-5 sm:w-6 sm:h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="p-4 sm:p-6 bg-slate-900">
+    @if (cargando) {
+    <div class="flex items-center justify-center py-12">
+      <div
+        class="animate-spin rounded-full h-8 w-8 border-4 border-slate-700 border-t-yellow-400"
+      ></div>
+      <p class="ml-3 text-slate-400 font-poppins">Cargando clases...</p>
+    </div>
+    } @else {
+
+    <div class="grid grid-cols-7 gap-1 sm:gap-2 mb-3 sm:mb-4">
+      @for (weekday of weekdays; track $index) {
+      <div class="text-center text-yellow-400 font-bold text-xs sm:text-sm font-bebas">
+        {{ weekday }}
+      </div>
+      }
+    </div>
+
+    <div class="grid grid-cols-7 gap-1 sm:gap-2">
+      @for (day of days; track $index) {
+      <button
+        (click)="selectDay(day)"
+        type="button"
+        [disabled]="day === null"
+        [class.empty]="day === null"
+        [class.today]="isToday(day)"
+        [class.selected]="isDaySelected(day)"
+        [class.has-event]="tieneclases(day)"
+        [attr.aria-label]="day ? 'Día ' + day : 'Día vacío'"
+        class="relative aspect-square flex flex-col items-center justify-center rounded-lg font-semibold transition-all duration-200 disabled:cursor-default text-xs sm:text-sm overflow-hidden group"
+        [ngClass]="{
+          'bg-slate-800 text-slate-500 cursor-default': day === null,
+          'bg-yellow-400 text-slate-900 font-bold ring-2 ring-yellow-500 hover:bg-yellow-300':
+            isDaySelected(day),
+          'bg-red-500 text-white hover:bg-red-600 ring-2 ring-red-600': isToday(day),
+          'bg-green-600 text-white hover:bg-green-700 ring-2 ring-green-500':
+            tieneclases(day) && !isDaySelected(day),
+          'bg-slate-700 text-slate-200 hover:bg-slate-600 cursor-pointer':
+            day !== null && !isDaySelected(day) && !isToday(day) && !tieneclases(day)
+        }"
+        style="font-family: 'Poppins', sans-serif"
+      >
+        <span class="font-bold">{{ day }}</span>
+
+        @if (tieneclases(day)) {
+        <span class="text-xs mt-0.5" title="Clases en este día"> 🎯 </span>
+        }
+      </button>
+      }
+    </div>
+
+    <div class="mt-6 pt-6 border-t border-slate-700">
+      @if (selectedDays.length > 0) {
+      <div class="space-y-4">
+        @for (dia of selectedDays; track dia) {
+        <div class="bg-slate-800 rounded-lg p-4">
+          <h3 class="text-yellow-400 font-bold font-bebas mb-2">
+            {{ monthNames[currentMonth] }} {{ dia }}
+          </h3>
+
+          @if (getClasesDelDia(dia).length > 0) {
+          <div class="space-y-2">
+            @for (clase of getClasesDelDia(dia); track clase.id) {
+            <div class="bg-slate-700 rounded p-2 flex gap-2">
+              @if (clase.imagenClase) {
+              <img
+                [src]="clase.imagenClase"
+                [alt]="clase.nombre"
+                class="w-10 h-10 rounded object-cover flex-shrink-0"
+                (error)="$event.target.src = '/images/placeholder.jpg'"
+              />
+              }
+              <div class="flex-1 min-w-0">
+                <p class="text-white font-semibold text-sm truncate font-poppins">
+                  {{ clase.nombre }}
+                </p>
+                <p class="text-slate-300 text-xs font-poppins">⏰ {{ clase.horario }}</p>
+              </div>
+            </div>
+            }
+          </div>
+          } @else {
+          <p class="text-slate-400 text-sm font-poppins">No hay clases programadas</p>
+          }
+        </div>
+        }
+      </div>
+
+      <button
+        (click)="clearSelectedDays()"
+        type="button"
+        class="w-full mt-4 px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg transition-colors duration-200 font-bebas"
+        aria-label="Limpiar días seleccionados"
+      >
+        Limpiar Selección
+      </button>
+      } @else {
+      <p class="text-center text-slate-400 font-poppins">
+        Selecciona un día para ver las clases disponibles
+      </p>
+      }
+    </div>
+
+    <div class="mt-6 pt-6 border-t border-slate-700">
+      <h3 class="text-yellow-400 font-bold mb-3 text-sm font-bebas">LEYENDA</h3>
+      <ul class="space-y-2 text-xs font-poppins">
+        <li class="flex items-center gap-2">
+          <span class="w-4 h-4 bg-red-500 rounded"></span>
+          <span class="text-slate-300">Hoy</span>
+        </li>
+        <li class="flex items-center gap-2">
+          <span class="w-4 h-4 bg-green-600 rounded"></span>
+          <span class="text-slate-300">Con clases</span>
+        </li>
+        <li class="flex items-center gap-2">
+          <span class="w-4 h-4 bg-yellow-400 rounded"></span>
+          <span class="text-slate-900">Seleccionado</span>
+        </li>
+      </ul>
+    </div>
+    }
+  </div>
+</section>

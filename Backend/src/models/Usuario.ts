@@ -4,7 +4,8 @@ export class Usuario {
     public email: string,
     public nombre?: string,
     public foto?: string,
-    public rol: 'cliente' | 'admin' = 'cliente'
+    public rol: 'cliente' | 'entrenador' = 'cliente',
+    public clasesId: string[] = []
   ) {}
 
   toFirestore() {
@@ -13,7 +14,8 @@ export class Usuario {
       nombre: this.nombre || null,
       foto: this.foto || null,
       rol: this.rol,
-      lastLogin: new Date()
+      lastLogin: new Date(),
+      clasesId:this.clasesId
     };
   }
 }

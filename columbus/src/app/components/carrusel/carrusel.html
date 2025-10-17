@@ -8,7 +8,7 @@
   <ul #sliderTrack class="flex transition-transform duration-300 w-full  ">
     @for (banner of data.banners_principales; track banner) {
     <li class="min-w-full min-h-full ">
-      <img [src]="banner" alt="Banner" class="object-cover w-full h-auto 2xl:max-h-120" />
+      <img [src]="banner" alt="Banner" class="object-cover w-full min-h-60 h-auto 2xl:max-h-120" />
     </li>
     }
   </ul>

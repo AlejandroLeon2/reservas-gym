@@ -10,17 +10,17 @@ export const adminGuard: CanActivateFn = async () => {
 
   if (!user) {
     router.navigate(['/login']);
-    console.log("negado",user);
+
     return false;
   }
 
   const role = await authService.getUserRoleFromBackend();
-  if (role === 'admin' ||role === 'cliente') {
+  if (role === 'entrenador' ||role === 'cliente') {
     console.log("aceptado",role);
 
     return true;
   }
 
-  router.navigate(['/login']);
+  router.navigate(['/']);
   return false;
 };

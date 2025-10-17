@@ -1,80 +1,267 @@
-<form
-  [formGroup]="form"
-  (ngSubmit)="onSubmit()"
-  class="space-y-4 mx-auto w-80 md:w-full border border-gray-100 shadow grid md:grid-cols-3 gap-4 md:p-4 rounded-lg bg-white"
->
 
-  <div class="w-full">
-    <label class="block text-sm font-medium text-gray-700">Nombre</label>
-    <input
-      type="text"
-      formControlName="nombre"
-      class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-    />
-  </div>
-
-
-  <div class="w-full">
-    <label class="block text-sm font-medium text-gray-700">Horario de Inicio</label>
-    <select
-      formControlName="horarioInicio"
-      class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-    >
-      @if (horas.length > 0) {
-        @for (h of horas; track h) {
-          <option [value]="h">{{ h }}</option>
+  <div class="max-w-4xl pt-24 mx-auto">
+    <!-- Header -->
+    <header class="mb-8 sm:mb-12 text-center px-4 sm:px-0">
+      <h1 class="text-3xl sm:text-5xl font-bold text-white font-bebas tracking-wider mb-2">
+        {{ formTitle }}
+      </h1>
+      <p class="text-base sm:text-lg text-yellow-400 font-poppins">
+        @if (isEditing) {
+          Actualiza los detalles de tu clase
+        } @else {
+          Crea una nueva clase y comparte tu experiencia
         }
-      } @else {
-        <option disabled>No hay horarios disponibles</option>
-      }
-    </select>
-  </div>
+      </p>
+    </header>
 
+    <!-- Mensajes -->
+    @if (errorMessage) {
+      <div class="mb-6 mx-4 sm:mx-0 p-4 bg-red-500 bg-opacity-20 border border-red-500 text-red-400 rounded-lg font-poppins text-sm animate-pulse">
+        {{ errorMessage }}
+      </div>
+    }
 
-  <div class="w-full">
-    <label class="block text-sm font-medium text-gray-700">Horario de Fin</label>
-    <select
-      formControlName="horarioFin"
-      class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-    >
-      @if (horas.length > 0) {
-        @for (h of horas; track h) {
-          <option [value]="h">{{ h }}</option>
+    @if (successMessage) {
+      <div class="mb-6 mx-4 sm:mx-0 p-4 bg-green-500 bg-opacity-20 border border-green-500 text-green-400 rounded-lg font-poppins text-sm">
+        {{ successMessage }}
+      </div>
+    }
+
+    <!-- Formulario -->
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="bg-slate-900 grid gap-4 w-full grid-cols-1  md:grid-cols-2 lg:min-w-4xl rounded-2xl border border-yellow-400 border-opacity-20 shadow-2xl p-6 sm:p-8 space-y-8">
+      
+      <!-- Sección 1: Información Básica -->
+      <section class="space-y-6">
+        <h2 class="text-2xl font-bold text-white font-bebas tracking-wide">INFORMACIÓN BÁSICA</h2>
+        
+        <!-- Nombre -->
+        <div class="md:col-span-1">
+          <label class="block text-sm font-semibold text-yellow-400 mb-3 font-bebas tracking-wide">
+            Nombre de la Clase *
+          </label>
+          <input
+            type="text"
+            formControlName="nombre"
+            placeholder="Ej: CrossFit, Yoga, Boxeo, Pilates"
+            class="w-full px-6 py-3 bg-slate-800 border border-slate-700 text-white rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400 focus:ring-opacity-50 transition font-poppins"
+            [class.border-red-500]="hasError('nombre')"
+          />
+          @if (hasError('nombre')) {
+            <p class="mt-2 text-sm text-red-400 font-poppins">
+              {{ getErrorMessage('nombre') }}
+            </p>
+          }
+        </div>
+
+        <!-- Descripción -->
+        <div class="md:col-span-1">
+          <label class="block text-sm font-semibold text-yellow-400 mb-3 font-bebas tracking-wide">
+            Descripción de la Clase *
+          </label>
+          <textarea
+            formControlName="descripcion"
+            placeholder="Describe tu clase, nivel de dificultad, beneficios, requisitos previos, etc."
+            rows="5"
+            class="w-full px-6 py-3 bg-slate-800 border border-slate-700 text-white rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400 focus:ring-opacity-50 transition font-poppins resize-none"
+            [class.border-red-500]="hasError('descripcion')"
+          ></textarea>
+          @if (hasError('descripcion')) {
+            <p class="mt-2 text-sm text-red-400 font-poppins">
+              {{ getErrorMessage('descripcion') }}
+            </p>
+          }
+        </div>
+      </section>
+
+    
+
+      <!-- Sección 2: Fecha y Horario -->
+      <section class="space-y-6">
+        <h2 class="text-2xl font-bold text-white font-bebas tracking-wide">FECHA Y HORARIO</h2>
+        
+        <!-- Fecha -->
+        <div>
+          <label class="block text-sm font-semibold text-yellow-400 mb-3 font-bebas tracking-wide">
+            Fecha de la Clase *
+          </label>
+          <input
+            type="date"
+            formControlName="fecha"
+            class="w-full px-6 py-3 bg-slate-800 border border-slate-700 text-white rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400 focus:ring-opacity-50 transition font-poppins"
+            [class.border-red-500]="hasError('fecha')"
+          />
+          @if (hasError('fecha')) {
+            <p class="mt-2 text-sm text-red-400 font-poppins">
+              {{ getErrorMessage('fecha') }}
+            </p>
+          }
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Hora de Inicio -->
+          <div>
+            <label class="block text-sm font-semibold text-yellow-400 mb-3 font-bebas tracking-wide">
+              Hora de Inicio *
+            </label>
+            <input
+              type="time"
+              formControlName="horaInicio"
+              class="w-full px-6 py-3  bg-slate-800 border border-slate-700 text-white rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400 focus:ring-opacity-50 transition font-poppins"
+              [class.border-red-500]="hasError('horaInicio')"
+            />
+            @if (hasError('horaInicio')) {
+              <p class="mt-2 text-sm text-red-400 font-poppins">
+                {{ getErrorMessage('horaInicio') }}
+              </p>
+            }
+          </div>
+
+          <!-- Hora de Fin -->
+          <div>
+            <label class="block text-sm font-semibold text-yellow-400 mb-3 font-bebas tracking-wide">
+              Hora de Fin *
+            </label>
+            <input
+              type="time"
+              formControlName="horaFin"
+              class="w-full px-6 py-3 bg-slate-800 border border-slate-700 text-white rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400 focus:ring-opacity-50 transition font-poppins"
+              [class.border-red-500]="hasError('horaFin')"
+            />
+            @if (hasError('horaFin')) {
+              <p class="mt-2 text-sm text-red-400 font-poppins">
+                {{ getErrorMessage('horaFin') }}
+              </p>
+            }
+          </div>
+        </div>
+
+        <!-- Vista previa del horario -->
+        @if (horarioCompleto) {
+          <div class="bg-yellow-400 bg-opacity-10 border border-yellow-400 rounded-xl p-2 text-center">
+            <p class="text-black font-bebas text-lg tracking-wide">
+              ⏰ {{ horarioCompleto }}
+            </p>
+          </div>
         }
-      } @else {
-        <option disabled>No hay horarios disponibles</option>
-      }
-    </select>
+      </section>
+
+
+
+      <!-- Sección 3: Imagen -->
+      <section class="space-y-6 md:col-span-2 border">
+        <h2 class="text-2xl font-bold text-white font-bebas tracking-wide">IMAGEN DE LA CLASE</h2>
+        
+        <div>
+          <label class="block text-sm font-semibold text-yellow-400 mb-3 font-bebas tracking-wide">
+            Selecciona una Imagen *
+          </label>
+          
+          <!-- Grid de imágenes -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+            @for (imagen of imagenesDisponibles; track imagen) {
+              <button
+                type="button"
+                (click)="seleccionarImagen(imagen)"
+                class="relative group overflow-hidden rounded-lg border-2 transition-all duration-200"
+                [class.border-yellow-400]="imagenSeleccionada === imagen"
+                [class.border-slate-700]="imagenSeleccionada !== imagen"
+              >
+                <img
+                  [src]="imagen"
+                  [alt]="imagen"
+                  class="w-full h-30 sm:h-36 object-cover group-hover:scale-110 transition-transform duration-200"
+                  (error)="$event.target.src = '/images/placeholder.jpg'"
+                />
+                @if (imagenSeleccionada === imagen) {
+                  <div class="absolute inset-0 bg-yellow-400 bg-opacity-20 flex items-center justify-center">
+                    <svg class="w-6 h-6 sm:w-8 sm:h-8 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                }
+              </button>
+            }
+          </div>
+
+          <!-- Input oculto -->
+          <input
+            type="hidden"
+            formControlName="imagenClase"
+          />
+
+          @if (hasError('imagenClase')) {
+            <p class="mt-3 text-sm text-red-400 font-poppins">
+              {{ getErrorMessage('imagenClase') }}
+            </p>
+          }
+        </div>
+
+        <!-- Vista previa seleccionada -->
+        @if (imagenSeleccionada) {
+          <div class="mt-6 flex flex-col justify-center">
+            <p class="text-sm font-semibold text-yellow-400 mb-3 font-bebas">Vista Previa:</p>
+            <img
+              [src]="imagenSeleccionada"
+              alt="Vista previa"
+              class="w-full h-auto md:w-80 mx-auto object-cover rounded-lg border border-yellow-400 border-opacity-30"
+              (error)="$event.target.src = '/images/placeholder.jpg'"
+            />
+          </div>
+        }
+      </section>
+
+  
+      <!-- Sección 4: Cupos -->
+      <section class="space-y-6">
+        <h2 class="text-2xl font-bold text-white font-bebas tracking-wide">DISPONIBILIDAD</h2>
+        
+        <div>
+          <label class="block text-sm font-semibold text-yellow-400 mb-3 font-bebas tracking-wide">
+            Cupos Disponibles *
+          </label>
+          <input
+            type="number"
+            formControlName="cuposDisponibles"
+            placeholder="Ej: 20"
+            min="1"
+            max="100"
+            class="w-full px-6 py-3 bg-slate-800 border border-slate-700 text-white rounded-xl focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400 focus:ring-opacity-50 transition font-poppins"
+            [class.border-red-500]="hasError('cuposDisponibles')"
+          />
+          @if (hasError('cuposDisponibles')) {
+            <p class="mt-2 text-sm text-red-400 font-poppins">
+              {{ getErrorMessage('cuposDisponibles') }}
+            </p>
+          }
+        </div>
+      </section>
+
+
+      <footer class="flex flex-col sm:flex-row justify-center items-center gap-4 pt-6">
+        <button
+          type="submit"
+          [disabled]="form.invalid || loading"
+          class="px-4 py-2  bg-yellow-400 text-slate-900 font-bold rounded-xl hover:bg-yellow-500 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed font-bebas tracking-wider text-base sm:text-lg flex items-center justify-center gap-2 sm:gap-3 active:scale-95"
+        >
+          @if (loading) {
+            <div class="animate-spin rounded-full h-4 w-4 sm:h-5 sm:w-5 border-2 border-slate-900 border-t-transparent"></div>
+          } @else {
+            <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+          }
+          {{ buttonText }}
+        </button>
+
+        @if (isEditing) {
+          <button
+            type="button"
+            (click)="limpiarFormulario()"
+            class="flex-1 px-6 sm:px-8 py-3 sm:py-4 border-2 border-red-600 text-red-600 font-bold rounded-xl hover:bg-red-600 hover:text-white transition-all duration-200 font-bebas tracking-wider text-base sm:text-lg"
+          >
+            Cancelar
+          </button>
+        }
+      </footer>
+    </form>
   </div>
-
-
-  <div class="w-full">
-    <label class="block text-sm font-medium text-gray-700">Cupos disponibles</label>
-    <input
-      type="number"
-      formControlName="cuposDisponibles"
-      class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-    />
-  </div>
-
-
-  <div class="w-full md:col-span-2">
-    <label class="block text-sm font-medium text-gray-700">Descripción</label>
-    <input
-      type="text"
-      formControlName="descripcion"
-      class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-    />
-  </div>
-
-
-  <div class="w-full md:col-span-3">
-    <button
-      type="submit"
-      [disabled]="form.invalid"
-      class="w-full bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700 transition"
-    >
-      Registrar Clase
-    </button>
-  </div>
-</form>
