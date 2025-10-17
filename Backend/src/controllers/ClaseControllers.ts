@@ -97,4 +97,43 @@ export class ClaseControllers {
       res.status(500).json({ error: "No se pudo eliminar al usuario", detalle: mensaje });
     }
   };
+  public obtenerClasesEntrenador = async (req: Request, res: Response) => {
+    try {
+      const { entrenadorId } = req.params;
+      if (!entrenadorId) {
+        return res.status(400).json({ error: "Falta el parámetro 'entrenadorId'" });
+      }
+
+      const clases = await this.servicio.obtenerClasesEntrenador(entrenadorId);
+      res.status(200).json(clases);
+    } catch (error: unknown) {
+      console.error("Error al obtener clases del entrenador", error);
+      const mensaje =
+        error instanceof Error ? error.message : "Error desconocido";
+      res.status(500).json({
+        error: "No se pudieron obtener las clases del entrenador",
+        detalle: mensaje,
+      });
+    }
+  };
+
+  public obtenerClasesCliente = async (req: Request, res: Response) => {
+    try {
+      const { clienteId } = req.params;
+      if (!clienteId) {
+        return res.status(400).json({ error: "Falta el parámetro 'clienteId'" });
+      }
+
+      const clases = await this.servicio.obtenerClasesCliente(clienteId);
+      res.status(200).json(clases);
+    } catch (error: unknown) {
+      console.error("Error al obtener clases del cliente", error);
+      const mensaje =
+        error instanceof Error ? error.message : "Error desconocido";
+      res.status(500).json({
+        error: "No se pudieron obtener las clases del cliente",
+        detalle: mensaje,
+      });
+    }
+  };
 }

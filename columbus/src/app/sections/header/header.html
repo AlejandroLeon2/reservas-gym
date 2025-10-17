@@ -21,7 +21,7 @@
     <ul class="hidden md:flex gap-4" role="list">
       @for (ruta of data.rutasSitio; track ruta) {
       <li class="group relative flex flex-col p-0.5 ">
-        <p class="font-bebas text-lg">{{ ruta.nombre }}</p>
+        <a [routerLink]="['/', ruta.ruta]" class="font-bebas text-lg">{{ ruta.nombre }}</a>
 
         <a
           [routerLink]="['/', ruta.ruta]"
@@ -39,7 +39,7 @@
     <button
   id="openMenu"
   (click)="toggleMenu()"
-  class="md:hidden w-10 h-10 bg-gray-200 flex justify-center items-center rounded hover:bg-gray-300 transition"
+  class="md:hidden w-10 h-10 bg-energy flex justify-center items-center rounded hover:bg-gray-300 transition"
   aria-label="Abrir menú"
 >
       <svg class="w-6 h-6 text-gray-700" fill="currentColor" viewBox="0 0 24 24">

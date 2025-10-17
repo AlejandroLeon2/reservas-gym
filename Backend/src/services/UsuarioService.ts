@@ -15,6 +15,6 @@ export class UsuarioService {
     if (!doc.exists) return null;
     const data = doc.data();
     if (!data) return null;
-    return new Usuario(uid, data.email, data.nombre, data.foto, data.rol);
+    return new Usuario(uid, data.email, data.nombre, data.foto, data.rol, data.claseId);
   }
 }

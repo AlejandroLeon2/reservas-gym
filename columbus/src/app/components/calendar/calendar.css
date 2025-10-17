@@ -1,0 +1,96 @@
+
+
+/* Contenedor interno del calendario */
+.calendar-container {
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(18,20,23,0.85);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: inset 0 0 8px rgba(255,255,255,0.05);
+}
+
+/* Header del mes */
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: var(--cyan);
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px 12px 0 0;
+}
+
+.calendar-header button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.calendar-header button:hover {
+  transform: scale(1.2);
+  color: var(--neon-green);
+}
+
+/* Días de la semana */
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background: rgba(255,255,255,0.05);
+  color: var(--muted);
+  font-weight: bold;
+  padding: 6px 0;
+  font-size: 13px;
+}
+
+.calendar-weekdays div {
+  text-align: center;
+}
+
+/* Días del mes */
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+  padding: 6px;
+}
+
+.calendar-days .day {
+  padding: 12px 0;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.03);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendar-days .day:hover {
+  background: var(--cyan);
+  color: #000;
+  box-shadow: 0 0 8px var(--cyan);
+}
+
+/* Día actual */
+.calendar-days .today {
+  background-color: var(--neon-green);
+  color: #000;
+  font-weight: bold;
+  box-shadow: 0 0 12px var(--neon-green);
+}
+
+.calendar-days .selected {
+  background-color: var(--cyan);
+}
+
+.calendar-days .empty {
+  background: rgba(18,20,23,0.85);
+}

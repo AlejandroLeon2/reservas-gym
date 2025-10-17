@@ -9,9 +9,7 @@
   },
   "rutasSitio": [
     { "ruta": "home", "nombre": "Home" },
-    { "ruta": "clases", "nombre": "Clases" },
     { "ruta": "login", "nombre": "Iniciar sesión" },
-    { "ruta": "register", "nombre": "Registro" },
     { "ruta": "admin", "nombre": "Panel Admin" }
   ],
   "banners_principales": [
@@ -22,6 +20,11 @@
     "/banners/banner5.jpg",
     "/banners/banner6.jpg"
   ],
+  "rutasAdmin":[
+  { "label": "Reservas", "route": "/admin/clases" },
+  { "label": "Perfil", "route": "/admin/perfil" },
+  { "label": "Horario", "route": "/admin/horario" }
+],
   "contacto": {
     "telefono": "+51 946 113 878",
     "email": "columbusfitnessgym@gmail.com",

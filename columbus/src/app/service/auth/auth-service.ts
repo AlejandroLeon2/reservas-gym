@@ -30,10 +30,8 @@ export class AuthService {
 
     try {
       const response = await firstValueFrom(
-        
         this.http.get<{ rol: string }>(`${this.apiUrl}/usuario/${user.uid}`)
       );
-
 
       return response.rol || null;
     } catch (error) {

@@ -3,6 +3,7 @@ import { FormsModule, FormBuilder, Validators, ReactiveFormsModule } from '@angu
 import { AuthService } from '../../service/auth/auth-service';
 import { CommonModule, NgClass } from '@angular/common';
 import { environment } from '../../../environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form-login',
@@ -24,7 +25,7 @@ export class FormLogin {
   errorMessage = '';
   loading = false;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private route:Router) {}
 
   async onLogin() {
     this.loading = true;
@@ -56,7 +57,7 @@ export class FormLogin {
     try {
       const user = await this.authService.loginWithGoogle();
       const token = await user.user.getIdToken();
-console.log('Environment activo:', environment);
+
 
       await fetch(this.apiUrl, {
         method: 'POST',
@@ -67,6 +68,7 @@ console.log('Environment activo:', environment);
       });
 
       console.log('Login con Google exitoso:', user.user);
+      this.route.navigate(['/admin']);
       
     } catch (err) {
       this.errorMessage = 'Error al iniciar sesión con Google.';

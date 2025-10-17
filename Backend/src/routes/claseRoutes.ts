@@ -12,6 +12,9 @@ router.post(
   manejarErroresValidacion,
   controllers.crearClase
 );
+router.get("/clase/entrenador/:entrenadorId", controllers.obtenerClasesEntrenador);
+
+router.get("/clase/cliente/:clienteId", controllers.obtenerClasesCliente);
 
 router.get("/clase", controllers.obtenerClases);
 
